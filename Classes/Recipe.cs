@@ -4,7 +4,13 @@ namespace CookieCookbook.Classes
 {
     public class Recipe
     {
-        public IEnumerable<IIngredient> Ingredients;
+        public int RecipeId;
+        public List<IIngredient> Ingredients;
+
+        public Recipe(){
+            // recipeId = RecipeId;
+            // ingredients = Ingredients;
+        }
     }
 }
 

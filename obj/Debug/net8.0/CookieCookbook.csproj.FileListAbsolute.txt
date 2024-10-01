@@ -12,3 +12,4 @@ C:\Project\CookieCookbook\CookieCookbook\obj\Debug\net8.0\refint\CookieCookbook.
 C:\Project\CookieCookbook\CookieCookbook\obj\Debug\net8.0\CookieCookbook.pdb
 c:\Project\CookieCookbook\CookieCookbook\obj\Debug\net8.0\CookieCookbook.genruntimeconfig.cache
 c:\Project\CookieCookbook\CookieCookbook\obj\Debug\net8.0\ref\CookieCookbook.dll
+C:\Project\CookieCookbook\CookieCookbook\obj\Debug\net8.0\CookieCookbook.sourcelink.json
