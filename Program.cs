@@ -5,7 +5,6 @@ using CookieCookbook.Interface;
 
 class Program
 {
-    // private List<IIngredient> _ingredients;
     static void Main()
     {
         List<IIngredient> ingredients = new List<IIngredient>{
@@ -139,7 +138,6 @@ class Program
                 Console.WriteLine($"***** {recipe.Id} *****");
 
             }
-
         }
         static void Finished()
         {
