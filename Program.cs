@@ -27,6 +27,8 @@ class Program
 
             // Console.WriteLine($"Hai, {name} let`s make some recipe for our cookie !!!");
 
+            PrintAllRecipe();
+
             ChooseAction(out int action);
             switch (action)
             {
@@ -122,21 +124,34 @@ class Program
         static void SaveRecipe(List<IIngredient> ingredientsSave)
         {
             // disimpan ke dalam bentuk txt atau json
-
-            string result = JsonSerializer.Serialize(ingredientsSave); ;
-
-            using (StreamWriter sw = new("./recipe.json"))
+            string result = JsonSerializer.Serialize(ingredientsSave);
+            using (StreamWriter sw = new("./recipe.json",true))
             {
-                sw.WriteLine(result);
+                // foreach(var ingredient in ingredientsSave){
+                //     sw.WriteLine($"{ingredient.Id}");
+                // }
+                
+                sw.Write(result);
             }
         }
-        static void PrintAllRecipe(List<IIngredient> printRecipe)
+        static void PrintAllRecipe()
         {
             Console.WriteLine("Resep yang telah dibuat adalah sebagai berikut :");
-            foreach (var recipe in printRecipe)
-            {
-                Console.WriteLine($"***** {recipe.Id} *****");
+            string result;
 
+            using (StreamReader sr = new("./recipe.json"))
+            {
+                result = sr.ReadToEnd();
+            }
+            List<Ingredient> ingredients = JsonSerializer.Deserialize<List<Ingredient>>(result);
+            foreach (var listRecipe in ingredients)
+            {
+                Console.WriteLine($"***** {listRecipe.Id} *****");
+                Console.Write($"{listRecipe.IngredientName}-");
+                foreach (var instruction in listRecipe.Instructions)
+                {
+                    Console.Write($"{instruction}.");
+                }
             }
         }
         static void Finished()

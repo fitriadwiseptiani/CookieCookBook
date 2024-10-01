@@ -7,9 +7,9 @@ namespace CookieCookbook.Classes
         public int RecipeId;
         public List<IIngredient> Ingredients;
 
-        public Recipe(){
-            // recipeId = RecipeId;
-            // ingredients = Ingredients;
+        public Recipe(int recipeId, List<IIngredient> ingredients){
+            RecipeId = recipeId;
+            Ingredients = ingredients;
         }
     }
 }
