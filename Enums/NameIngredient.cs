@@ -1,30 +1,31 @@
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace CookieCookbook.Enums;
 
 public enum NameIngredient
 {
-    [Description("Wheat Flour")]
+    [Display(Name ="Wheat Flour")]
     WheatFlour,
 
-    [Description("Coconut Flour")]
+    [Display(Name = "Coconut Flour")]
     CoconutFlour,
 
-    [Description("Butter")]
+    [Display(Name = "Butter")]
     Butter,
 
-    [Description("Chocolate")]
+    [Display(Name = "Chocolate")]
     Chocolate,
 
-    [Description("Sugar")]
+    [Display(Name = "Sugar")]
     Sugar,
 
-    [Description("Cardamon")]
+    [Display(Name = "Cardamon")]
     Cardamon,
 
-    [Description("Cinnamon")]
+    [Display(Name = "Cinnamon")]
     Cinnamon,
 
-    [Description("Cocoa Powder")]
+    [Display(Name = "Cocoa Powder")]
     CocoaPowder,
 }

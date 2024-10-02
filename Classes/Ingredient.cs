@@ -16,9 +16,6 @@ namespace CookieCookbook.Classes
             IngredientName = ingredientName;
             Instructions = instructions;
         }
-        public string GetIngredientName(){
-            return IngredientName.ToString();
-        }
     }
 }
 

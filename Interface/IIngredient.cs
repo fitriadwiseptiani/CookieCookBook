@@ -6,7 +6,7 @@ namespace CookieCookbook.Interface
     {
         public int Id { get; }
         NameIngredient IngredientName { get; }
-        List<Instruction> Instructions {get;}
+        List<Instruction> Instructions { get; }
     }
 }
 
