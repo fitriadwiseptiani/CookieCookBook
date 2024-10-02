@@ -8,12 +8,10 @@ namespace CookieCookbook.Classes;
 public class RecipeManager
 {
     private readonly IRecipePrint _recipePrint;
-    private readonly List<IRecipe> _recipes;
 
     public RecipeManager(IRecipePrint recipePrint)
     {
         _recipePrint = recipePrint;
-        _recipes = new List<IRecipe>();
     }
     public void SaveRecipe(List<IIngredient> ingredients)
     {
@@ -27,7 +25,7 @@ public class RecipeManager
         List<int> ingredientIds = ingredients.Select(i => i.Id).ToList();
         string recipeLine = string.Join(",", ingredientIds);
 
-        string filePath = "recipes.json";
+        string filePath = "./Json/recipes.json";
         List<string> recipes;
 
         if (File.Exists(filePath))
@@ -54,24 +52,7 @@ public class RecipeManager
     public void PrintAllRecipe(CookieController cookie)
     {
 
-        Console.WriteLine("Resep yang telah dibuat adalah sebagai berikut :");
-        // string result;
-
-        // using (StreamReader sr = new("./recipes.json"))
-        // {
-        //     result = sr.ReadToEnd();
-        // }
-        // List<Ingredient> ingredients = JsonSerializer.Deserialize<List<Ingredient>>(result);
-        // foreach (var listRecipe in ingredients)
-        // {
-        //     Console.WriteLine($"***** {listRecipe.Id} *****");
-        //     Console.Write($"{listRecipe.IngredientName}-");
-        //     foreach (var instruction in listRecipe.Instructions)
-        //     {
-        //         Console.Write($"{instruction}.");
-        //     }
-        // }
-        string filePath = "recipes.json";
+        string filePath = "./Json/recipes.json";
         if (!File.Exists(filePath))
         {
             Console.WriteLine("No recipes found.");
