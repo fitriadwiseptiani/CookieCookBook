@@ -1,6 +1,6 @@
 namespace CookieCookbook.Enums;
 
-public enum FileType
+public enum FileFormat
 {
     Txt,
     Json

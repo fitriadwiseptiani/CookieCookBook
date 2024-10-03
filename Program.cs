@@ -1,33 +1,48 @@
 ﻿using System.Text.Json;
-using CookieCookbook.Classes;
-using CookieCookbook.Controller;
+using CookieCookbook.Container;
 using CookieCookbook.Enums;
-using CookieCookbook.Interface;
+using CookieCookbook.Repository;
 
 class Program
 {
-    private static CookieController cookie;
-    private static RecipeManager recipeManager;
-    static void Main(string[] args)
+    private static List<Ingredient> ingredients = new List<Ingredient>();
+    static void Main()
     {
-        cookie = new CookieController(null);
-        List<IIngredient> selectedIngredient = new();
-        IRecipe recipe = new Recipe(1, selectedIngredient);
-        IRecipePrint recipePrinter = new RecipePrinter();
-        recipeManager = new RecipeManager(recipePrinter);
-        InitializeIngredient();
+        CreateIngredient();
+        DisplayIngredient();
+        List<Recipe> recipes = new();
+        Recipe recipe = new();
+        
+        // RecipeRepo recipeRepo = new(recipes);
 
-        recipeManager.PrintAllRecipe(cookie);
+        string fileFormat = ChooseFormatFile();
+        RecipeRepo recipeRepo = new(fileFormat);
 
+        recipeRepo.PrintAllRecipe(recipes);
+        
         while (true)
         {
+            // ChooseFormatFile(out int input);
+            // if (input == 2)
+            // {
+            //     recipeRepo.PrintAllRecipeWithJson(recipeRepo);
+            //     recipeRepo.SaveRecipeToJson();
+
+            // }
+            // else if (input == 1)
+            // {
+            //     CreateIngredient();
+            //     DisplayIngredient();
+            // }
             ChooseAction(out int action);
             if (action == 2)
             {
-                if(selectedIngredient.Count > 0){
+                if (ingredients.Count > 0)
+                {
                     Finished();
                 }
-                else{
+                else
+                {
                     return;
                 }
                 break;
@@ -39,62 +54,44 @@ class Program
                 Console.Write("\nChoose one of the ingredient by number (only input the number) : ");
                 string inputPlayer = Console.ReadLine();
 
-                if (Int32.TryParse(inputPlayer, out int id))
-                {
-                    IIngredient ingredient = cookie.GetIngredientsList().Find(a => a.Id == id);
-                    if (!(ingredient == null))
-                    {
-                        selectedIngredient.Add(ingredient);
-                        Console.WriteLine($"{ingredient.IngredientName} was added to recipe");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Please input the valid number. no ingredient was matched with id that you input");
-                    }
+                recipe.MakeNewRecipe(inputPlayer);
 
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please input a number.");
-                }
+                
+
             }
         }
-        if (cookie.GetIngredientsList().Count > 0)
+        if (ingredients.Count > 0)
         {
-            recipeManager.SaveRecipe(selectedIngredient);
+            recipeRepo.SaveRecipe();
             Console.WriteLine("Recipe Added");
         }
         else
         {
             Console.WriteLine("No ingredients selected. No recipe added.");
-            
+
         }
     }
-    static void InitializeIngredient()
+    static void CreateIngredient()
     {
-        var ingredients = new List<IIngredient>
+        ingredients.AddRange(new List<Ingredient>
         {
-            new Ingredient(1, NameIngredient.WheatFlour, new List<Instruction>{Instruction.Sieve, Instruction.AddIngredients}),
-            new Ingredient(2, NameIngredient.CoconutFlour, new List<Instruction>{Instruction.Sieve, Instruction.AddIngredients}),
-            new Ingredient(3, NameIngredient.Butter, new List<Instruction>{Instruction.MeltLowheat, Instruction.AddIngredients}),
-            new Ingredient(4, NameIngredient.Chocolate, new List<Instruction>{Instruction.MeltWaterBath, Instruction.AddIngredients}),
-            new Ingredient(5, NameIngredient.Sugar, new List<Instruction>{Instruction.AddIngredients}),
-            new Ingredient(6, NameIngredient.Cardamon, new List<Instruction>{Instruction.TakeHalfTeaSpoon, Instruction.AddIngredients}),
-            new Ingredient(7, NameIngredient.Cinnamon, new List<Instruction>{Instruction.TakeHalfTeaSpoon, Instruction.AddIngredients}),
-            new Ingredient(8, NameIngredient.CocoaPowder, new List<Instruction>{Instruction.AddIngredients}),
-        };
-        cookie.SetIngredient(ingredients);
+            new Ingredient(1, IngredientName.WheatFlour, new List<Instruction>{Instruction.Sieve, Instruction.AddIngredients}),
+            new Ingredient(2, IngredientName.CoconutFlour, new List<Instruction>{Instruction.Sieve, Instruction.AddIngredients}),
+            new Ingredient(3, IngredientName.Butter, new List<Instruction>{Instruction.MeltLowheat, Instruction.AddIngredients}),
+            new Ingredient(4, IngredientName.Chocolate, new List<Instruction>{Instruction.MeltWaterBath, Instruction.AddIngredients}),
+            new Ingredient(5, IngredientName.Sugar, new List<Instruction>{Instruction.AddIngredients}),
+            new Ingredient(6, IngredientName.Cardamon, new List<Instruction>{Instruction.TakeHalfTeaSpoon, Instruction.AddIngredients}),
+            new Ingredient(7, IngredientName.Cinnamon, new List<Instruction>{Instruction.TakeHalfTeaSpoon, Instruction.AddIngredients}),
+            new Ingredient(8, IngredientName.CocoaPowder, new List<Instruction>{Instruction.AddIngredients}),
+        });
     }
-
     static void DisplayIngredient()
     {
-        var ingredients = cookie.GetIngredientsList();
         foreach (var ingredient in ingredients)
         {
             Console.WriteLine($"{ingredient.Id} - {ingredient.IngredientName}");
         }
     }
-
     static void ChooseAction(out int action)
     {
         action = 0;
@@ -121,15 +118,38 @@ class Program
             }
         }
     }
-    
+
     static void ChooseIngredient()
     {
         Console.WriteLine("\nChoose one of the ingredient below : ");
         DisplayIngredient();
     }
-    
+    static string ChooseFormatFile()
+    {
+        string fileFormat = "";
+        bool validInput = false;
+        Console.Write("\nChoose the format film for save the recipe : ");
+        Console.WriteLine("1. Json");
+        Console.WriteLine("2. Txt");
+        Console.WriteLine();
+        Console.Write("Your Input : ");
+        Console.WriteLine("");
+        bool status = int.TryParse(Console.ReadLine(), out int input);
+        if (status && input == 1 && input == 2)
+        {
+            fileFormat = input == 1 ? "json" : "txt";
+            validInput = true;
+        }
+        else
+        {
+            Console.WriteLine("Please input valid number (1-2)");
+            Thread.Sleep(1000);
+        }
+        return fileFormat;
+    }
     static void Finished()
     {
         Console.WriteLine("The session has been finished. Thank you for your contribution to adding new recipe");
     }
 }
+

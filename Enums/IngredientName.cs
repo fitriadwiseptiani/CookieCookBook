@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CookieCookbook.Enums;
 
-public enum NameIngredient
+public enum IngredientName
 {
     [Display(Name ="Wheat Flour")]
     WheatFlour,
