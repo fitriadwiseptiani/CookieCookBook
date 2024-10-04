@@ -2,6 +2,6 @@ namespace CookieCookbook.Repository;
 
 public interface IStringRepoManager
 {
-    void SaveRecipe();
-    void PrintRecipe();
+    void SaveRecipe(string recipeLine);
+    void PrintAllRecipe(string filePath, IRecipeBase recipes);
 }

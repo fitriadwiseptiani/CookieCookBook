@@ -1,28 +1,27 @@
 
 using CookieCookbook.Enums;
 
-namespace CookieCookbook.Container{
-    public class IngredientContainer : Ingredient
+namespace CookieCookbook.Container
+{
+    public class IngredientContainer
     {
-        private List<Ingredient> _ingredients { get;  set; }
-        public IngredientContainer(int id, IngredientName ingredientName, List<Instruction> instructions) : base(id, ingredientName, instructions)
-        {
-            _ingredients = new List<Ingredient>();
-        }
+        private List<IIngredientBase> _ingredientsBase { get; set; }
 
-
-        public override int GetIngredientById(Ingredient ingredient)
+        public int GetIngredientById(IIngredientBase ingredientBase)
         {
-            if (_ingredients.Contains(ingredient))
+            if (_ingredientsBase.Contains(ingredientBase))
             {
-                return ingredient.Id;
+                return ingredientBase.Id;
             }
             throw new Exception();
         }
-
-        public override void SetIngredient(List<Ingredient> ingredient)
+        public void SetIngredient(List<IIngredientBase> ingredientBase)
         {
-            _ingredients = ingredient;
+            _ingredientsBase = ingredientBase;
+        }
+        public List<IIngredientBase> GetIngredientsList()
+        {
+            return _ingredientsBase;
         }
     }
 }

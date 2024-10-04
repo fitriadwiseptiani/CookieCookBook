@@ -8,17 +8,24 @@ namespace CookieCookbook.Repository
     public class RecipeRepo
     {
         private IStringRepoManager _stringRepoManager;
-        public Recipe RecipeData;
-        public string RepoManager{get; set;}
+        private IRecipeBase _recipe;
 
-        public RecipeRepo(string repoManager, IStringRepoManager stringRepoManager)
+        public RecipeRepo(IStringRepoManager stringRepoManager)
         {
-            RepoManager = repoManager;
             _stringRepoManager = stringRepoManager;
         }
-        public void SaveRecipe()
+        public void SaveRecipe(IRecipeBase recipe)
         {
-            _stringRepoManager.SaveRecipe();
+            if (recipe.IngredientBases.Count == 0)
+        {
+            Console.WriteLine("No ingredients selected. Recipe will not be saved.");
+            return;
+        }
+        Console.WriteLine("Selected ingredients IDs: " + string.Join(", ", recipe.IngredientBases.Select(i => i.Id)));
+            List<int> ingredientIds = recipe.IngredientBases.Select(i => i.Id).ToList();
+            string recipeLine = string.Join(",", ingredientIds);
+
+            _stringRepoManager.SaveRecipe(recipeLine);
             // if(RepoManager == "json"){
             //     SaveRecipeToJson();
             // }
@@ -30,9 +37,23 @@ namespace CookieCookbook.Repository
             // }
 
         }
-        public void PrintAllRecipe(){
-            _stringRepoManager.PrintRecipe();
-        }
+        // public void PrintAllRecipe(List<Recipe> recipes){
+        //     if (recipes.Count == 0)
+        //     {
+        //         Console.WriteLine("No recipe can be displayed.");
+        //         return;
+        //     }
+        //     string filePath = "./Json/recipes.json";
+        //     if (!File.Exists(filePath))
+        //     {
+        //         Console.WriteLine("No recipes found.");
+        //         return;
+        //     }
+
+            
+            
+        //     _stringRepoManager.PrintRecipe();
+        // }
 
         // public void PrintAllRecipe(List<Recipe> recipes)
         // {
@@ -47,123 +68,101 @@ namespace CookieCookbook.Repository
         //     }
 
         // }
-        public void SaveRecipeToJson()
-        {
-            List<int> ingredientIds = RecipeData.Ingredients.Select(i => i.Id).ToList();
-            string recipeLine = string.Join(",", ingredientIds);
-            string filePath = "./Json/recipes.json";
-            List<string> recipes;
 
-            if (File.Exists(filePath))
-            {
-                string json = File.ReadAllText(filePath);
-                recipes = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
-            }
-            else
-            {
-                recipes = new List<string>();
-            }
+        // public void PrintAllRecipeFromJson(List<Recipe> recipes)
+        // {
+        //     if (recipes.Count == 0)
+        //     {
+        //         Console.WriteLine("No recipe can be displayed.");
+        //         return;
+        //     }
 
-            recipes.Add(recipeLine);
+        //     string filePath = "./Json/recipes.json";
+        //     if (!File.Exists(filePath))
+        //     {
+        //         Console.WriteLine("No recipes found.");
+        //         return;
+        //     }
 
-            string serializedJson = JsonSerializer.Serialize(recipes, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, serializedJson);
-        }
+        //     string json = File.ReadAllText(filePath);
+        //     List<string> recipe = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
 
-        public void PrintAllRecipeFromJson(List<Recipe> recipes)
-        {
-            if (recipes.Count == 0)
-            {
-                Console.WriteLine("No recipe can be displayed.");
-                return;
-            }
+        //     Console.WriteLine("\nAll Recipes:");
+        //     for (int i = 0; i < recipe.Count; i++)
+        //     {
+        //         string allRecipe = recipe[i];
+        //         List<int> ingredientIds = allRecipe.Split(',').Select(int.Parse).ToList();
+        //         Console.WriteLine($"***** Recipe {i + 1} *****");
+        //         Console.WriteLine(PrintRecipe(RecipeData, ingredientIds));
+        //         Console.WriteLine("");
+        //     }
 
-            string filePath = "./Json/recipes.json";
-            if (!File.Exists(filePath))
-            {
-                Console.WriteLine("No recipes found.");
-                return;
-            }
+        // }
+        // public void SaveRecipeToTxt(){
+        //     List<int> ingredientIds = RecipeData.Ingredients.Select(i => i.Id).ToList();
+        //     string recipeLine = string.Join(",", ingredientIds);
+        //     string filePath = "./Json/recipes.txt";
+        //     List<string> recipes;
 
-            string json = File.ReadAllText(filePath);
-            List<string> recipe = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
+        //     if (File.Exists(filePath))
+        //     {
+        //         string txt = File.ReadAllText(filePath);
+        //         recipes = JsonSerializer.Deserialize<List<string>>(txt) ?? new List<string>();
+        //     }
+        //     else
+        //     {
+        //         recipes = new List<string>();
+        //     }
 
-            Console.WriteLine("\nAll Recipes:");
-            for (int i = 0; i < recipe.Count; i++)
-            {
-                string allRecipe = recipe[i];
-                List<int> ingredientIds = allRecipe.Split(',').Select(int.Parse).ToList();
-                Console.WriteLine($"***** Recipe {i + 1} *****");
-                Console.WriteLine(PrintRecipe(RecipeData, ingredientIds));
-                Console.WriteLine("");
-            }
+        //     recipes.Add(recipeLine);
 
-        }
-        public void SaveRecipeToTxt(){
-            List<int> ingredientIds = RecipeData.Ingredients.Select(i => i.Id).ToList();
-            string recipeLine = string.Join(",", ingredientIds);
-            string filePath = "./Json/recipes.txt";
-            List<string> recipes;
+        //     string serializedJson = JsonSerializer.Serialize(recipes, new JsonSerializerOptions { WriteIndented = true });
+        //     File.WriteAllText(filePath, serializedJson);
+        // }
+        // public void PrintAllRecipeFromTxt(List<Recipe> recipes)
+        // {
+        //     if (recipes.Count == 0)
+        //     {
+        //         Console.WriteLine("No recipe can be displayed.");
+        //         return;
+        //     }
 
-            if (File.Exists(filePath))
-            {
-                string txt = File.ReadAllText(filePath);
-                recipes = JsonSerializer.Deserialize<List<string>>(txt) ?? new List<string>();
-            }
-            else
-            {
-                recipes = new List<string>();
-            }
+        //     string filePath = "./Json/recipes.txt";
+        //     if (!File.Exists(filePath))
+        //     {
+        //         Console.WriteLine("No recipes found.");
+        //         return;
+        //     }
 
-            recipes.Add(recipeLine);
+        //     string txt = File.ReadAllText(filePath);
+        //     List<string> recipe = JsonSerializer.Deserialize<List<string>>(txt) ?? new List<string>();
 
-            string serializedJson = JsonSerializer.Serialize(recipes, new JsonSerializerOptions { WriteIndented = true });
-            File.WriteAllText(filePath, serializedJson);
-        }
-        public void PrintAllRecipeFromTxt(List<Recipe> recipes)
-        {
-            if (recipes.Count == 0)
-            {
-                Console.WriteLine("No recipe can be displayed.");
-                return;
-            }
+        //     Console.WriteLine("\nAll Recipes:");
+        //     for (int i = 0; i < recipe.Count; i++)
+        //     {
+        //         string allRecipe = recipe[i];
+        //         List<int> ingredientIds = allRecipe.Split(',').Select(int.Parse).ToList();
+        //         Console.WriteLine($"***** Recipe {i + 1} *****");
+        //         Console.WriteLine(PrintRecipe(RecipeData, ingredientIds));
+        //         Console.WriteLine("");
+        //     }
 
-            string filePath = "./Json/recipes.txt";
-            if (!File.Exists(filePath))
-            {
-                Console.WriteLine("No recipes found.");
-                return;
-            }
+        // }
+        // public string PrintRecipe(Recipe recipes, List<int> ingredientIds)
+        // {
+        //     List<string> ingredientDetails = new List<string>();
 
-            string txt = File.ReadAllText(filePath);
-            List<string> recipe = JsonSerializer.Deserialize<List<string>>(txt) ?? new List<string>();
+        //     foreach (int id in ingredientIds)
+        //     {
+        //         Ingredient ingredient = recipes.Ingredients.Find(a => a.Id == id);
+        //         if (ingredient != null)
+        //         {
+        //             ingredientDetails.Add($"{ingredient.IngredientName}. {string.Join(". ", ingredient.Instructions)}");
+        //         }
+        //     }
 
-            Console.WriteLine("\nAll Recipes:");
-            for (int i = 0; i < recipe.Count; i++)
-            {
-                string allRecipe = recipe[i];
-                List<int> ingredientIds = allRecipe.Split(',').Select(int.Parse).ToList();
-                Console.WriteLine($"***** Recipe {i + 1} *****");
-                Console.WriteLine(PrintRecipe(RecipeData, ingredientIds));
-                Console.WriteLine("");
-            }
-
-        }
-        public string PrintRecipe(Recipe recipes, List<int> ingredientIds)
-        {
-            List<string> ingredientDetails = new List<string>();
-
-            foreach (int id in ingredientIds)
-            {
-                Ingredient ingredient = recipes.Ingredients.Find(a => a.Id == id);
-                if (ingredient != null)
-                {
-                    ingredientDetails.Add($"{ingredient.IngredientName}. {string.Join(". ", ingredient.Instructions)}");
-                }
-            }
-
-            return string.Join("\n", ingredientDetails);
-        }
+        //     return string.Join("\n", ingredientDetails);
+        // }
     }
 }
 

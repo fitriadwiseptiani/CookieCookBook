@@ -5,20 +5,24 @@ using CookieCookbook.Repository;
 
 class Program
 {
-    private static List<Ingredient> ingredients = new List<Ingredient>();
+    private static List<IIngredientBase> ingredientBase = new();
+    private static IngredientContainer ingredientContainer = new IngredientContainer();
+        // private static List<Ingredient> ingredientBase;
+
     static void Main()
     {
         CreateIngredient();
-        DisplayIngredient();
+        // DisplayIngredient();
         List<Recipe> recipes = new();
-        Recipe recipe = new();
+        IStringRepoManager stringRepoManager = new JsonBasedStringRepo();
+        // IStringRepoManager stringRepoManager2 = new Txt();
+        RecipeRepo recipeRepo = new(stringRepoManager);
         
-        // RecipeRepo recipeRepo = new(recipes);
+        RecipeFactory recipeFactory = new(ingredientBase);
 
-        string fileFormat = ChooseFormatFile();
-        RecipeRepo recipeRepo = new(fileFormat);
+        // string fileFormat = ChooseFormatFile();
 
-        recipeRepo.PrintAllRecipe(recipes);
+        // recipeRepo.PrintAllRecipe();
         
         while (true)
         {
@@ -37,7 +41,7 @@ class Program
             ChooseAction(out int action);
             if (action == 2)
             {
-                if (ingredients.Count > 0)
+                if (ingredientBase.Count > 0)
                 {
                     Finished();
                 }
@@ -54,15 +58,13 @@ class Program
                 Console.Write("\nChoose one of the ingredient by number (only input the number) : ");
                 string inputPlayer = Console.ReadLine();
 
-                recipe.MakeNewRecipe(inputPlayer);
-
-                
+                recipeFactory.MakeNewRecipe(inputPlayer, ingredientBase);
 
             }
         }
-        if (ingredients.Count > 0)
+        if (ingredientContainer.GetIngredientsList().Count > 0)
         {
-            recipeRepo.SaveRecipe();
+            recipeRepo.SaveRecipe(recipeFactory);
             Console.WriteLine("Recipe Added");
         }
         else
@@ -73,23 +75,25 @@ class Program
     }
     static void CreateIngredient()
     {
-        ingredients.AddRange(new List<Ingredient>
+        var ingredients = new List<IIngredientBase>
         {
-            new Ingredient(1, IngredientName.WheatFlour, new List<Instruction>{Instruction.Sieve, Instruction.AddIngredients}),
-            new Ingredient(2, IngredientName.CoconutFlour, new List<Instruction>{Instruction.Sieve, Instruction.AddIngredients}),
-            new Ingredient(3, IngredientName.Butter, new List<Instruction>{Instruction.MeltLowheat, Instruction.AddIngredients}),
-            new Ingredient(4, IngredientName.Chocolate, new List<Instruction>{Instruction.MeltWaterBath, Instruction.AddIngredients}),
-            new Ingredient(5, IngredientName.Sugar, new List<Instruction>{Instruction.AddIngredients}),
+            new Ingredient(1, IngredientName.WheatFlour, new List<Instruction>{Instruction.Sieve}),
+            new Ingredient(2, IngredientName.CoconutFlour, new List<Instruction>{Instruction.Sieve}),
+            new Ingredient(3, IngredientName.Butter, new List<Instruction>{Instruction.MeltLowheat}),
+            new Ingredient(4, IngredientName.Chocolate, new List<Instruction>{Instruction.MeltWaterBath}),
+            new Ingredient(5, IngredientName.Sugar, new List<Instruction>()),
             new Ingredient(6, IngredientName.Cardamon, new List<Instruction>{Instruction.TakeHalfTeaSpoon, Instruction.AddIngredients}),
             new Ingredient(7, IngredientName.Cinnamon, new List<Instruction>{Instruction.TakeHalfTeaSpoon, Instruction.AddIngredients}),
             new Ingredient(8, IngredientName.CocoaPowder, new List<Instruction>{Instruction.AddIngredients}),
-        });
+        };
+        ingredientContainer.SetIngredient(ingredients);
     }
     static void DisplayIngredient()
     {
+        var ingredients = ingredientContainer.GetIngredientsList();
         foreach (var ingredient in ingredients)
         {
-            Console.WriteLine($"{ingredient.Id} - {ingredient.IngredientName}");
+            Console.WriteLine($"{ingredient.Id} - {ingredient.IngredientName}.{string.Join(". ", ingredient.Instructions)}");
         }
     }
     static void ChooseAction(out int action)
