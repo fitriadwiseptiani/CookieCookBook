@@ -1,72 +1,66 @@
-﻿using System.Text.Json;
-using CookieCookbook.Container;
+﻿using CookieCookbook.Container;
 using CookieCookbook.Container.IngredientContainer.IngredientName;
 using CookieCookbook.Enums;
-using CookieCookbook.IngredientContainer;
+using CookieCookbook.Container.IngredientContainer;
+using CookieCookbook.RecipeData;
 using CookieCookbook.Repository;
 
 class Program
 {
-    private static List<IIngredientBase> ingredientBase = CreateIngredient();
-    // private static IngredientContainer ingredientContainer = new IngredientContainer();
-    // private static List<Ingredient> ingredientBase;
+    private static List<IIngredientBase> ingredient = new List<IIngredientBase>();
+    private static IRecipeBase recipeBase = new Recipe(1, ingredient, ingredientContainer);
+    private static IngredientContainer ingredientContainer = new();
 
     static void Main()
     {
+
         CreateIngredient();
-        // DisplayIngredient();
-        List<Recipe> recipes = new();
-        // IStringRepoManager stringRepoManager2 = new Txt();
+
+        List<IRecipeBase> recipes = new();
+        IStringRepoManager stringRepoManager;
+
 
         Console.WriteLine("Choose format to save recipes: 1. JSON 2. TXT");
         int choice = int.Parse(Console.ReadLine());
 
-        IStringRepoManager stringRepoManager;
         string filePath;
-        
+
         if (choice == 1)
         {
-            stringRepoManager = new JsonBasedStringRepo();
+            stringRepoManager = new JsonBasedStringRepo(ingredientContainer);
             filePath = "./File/recipes.json";
         }
         else
         {
-            stringRepoManager = new TxtBaseStringRepo();
+            stringRepoManager = new TxtBaseStringRepo(ingredientContainer);
             filePath = "./File/recipes.txt";
         }
 
-        RecipeRepo recipeRepo = new RecipeRepo(stringRepoManager, filePath);
+        RecipeRepo recipeRepo = new RecipeRepo(stringRepoManager, filePath, ingredientContainer);
 
-        // RecipeFactory recipeFactory = new(ingredientBase);
+        if (recipes.Count != null)
+        {
+            recipeRepo.PrintAllRecipe();
+        }
+        else
+        {
+            Console.WriteLine("Sorry there is no recipe can be selected. Please make new recipe");
 
-        // string fileFormat = ChooseFormatFile();
-
-        // recipeRepo.PrintAllRecipe();
-
+        }
+        Start();
         while (true)
         {
-            // ChooseFormatFile(out int input);
-            // if (input == 2)
-            // {
-            //     recipeRepo.PrintAllRecipeWithJson(recipeRepo);
-            //     recipeRepo.SaveRecipeToJson();
-
-            // }
-            // else if (input == 1)
-            // {
-            //     CreateIngredient();
-            //     DisplayIngredient();
-            // }
             ChooseAction(out int action);
             if (action == 2)
             {
-                if (ingredientBase.Count > 0)
+                if (ingredient.Count > 0)
                 {
                     Finished();
                 }
                 else
                 {
-                    return;
+                    Console.WriteLine("Sorry there is no ingredient selected, so you can not to make new recipe");
+
                 }
                 break;
             }
@@ -76,37 +70,17 @@ class Program
 
                 Console.Write("\nChoose one of the ingredient by number (only input the number) : ");
                 string inputPlayer = Console.ReadLine();
-                // IIngredientBase selectedIngredient = ingredientBase.FirstOrDefault(ingredient => ingredient.Id.ToString() == inputPlayer);
 
-                // if (selectedIngredient != null)
-                // {
-                //     recipes.Add(new Recipe(recipes.Count + 1, new List<IIngredientBase> { selectedIngredient }));
-                // }
-                // else
-                // {
-                //     Console.WriteLine("Invalid selection. Try again.");
-                // }
-                Recipe newRecipe = Recipe.MakeNewRecipe(inputPlayer, ingredientBase);
 
-                if (newRecipe.IngredientBases.Any())
-                {
-                    recipes.Add(newRecipe);
-                }
-                else
-                {
-                    Console.WriteLine("Invalid selection. Try again.");
-                }
+                RecipeFactory recipeFactory = new(1, ingredient, ingredientContainer);
+                recipeFactory.MakeNewRecipe(inputPlayer, ingredient);
 
             }
         }
-        if (recipes.Any())
+        if (ingredientContainer.GetIngredientsList().Count > 0)
         {
-            foreach (var recipe in recipes)
-            {
-                recipeRepo.SaveRecipe(recipe);
-            }
-            Console.WriteLine("Recipes added.");
-            recipeRepo.PrintAllRecipe();
+
+            recipeRepo.SaveRecipe(recipeBase);
         }
         else
         {
@@ -114,9 +88,10 @@ class Program
 
         }
     }
-    static List<IIngredientBase> CreateIngredient()
+    static void CreateIngredient()
     {
-        return new List<IIngredientBase>
+        var ingredients = new List<IIngredientBase>
+
         {
             new WheatFlour(1, IngredientName.WheatFlour, new List<Instruction>{Instruction.Sieve}),
             new CoconutFlour(2, IngredientName.CoconutFlour, new List<Instruction>{Instruction.Sieve}),
@@ -127,13 +102,15 @@ class Program
             new Cinnamon(7, IngredientName.Cinnamon, new List<Instruction>{Instruction.TakeHalfTeaSpoon}),
             new CocoaPowder(8, IngredientName.CocoaPowder, new List<Instruction>()),
         };
+        ingredientContainer.SetIngredient(ingredients);
     }
-    static void DisplayIngredient(List<IIngredientBase> ingredientBases)
+    static void DisplayIngredient()
     {
-        // var ingredients = IngredientContainer.GetIngredientsList();
-        for (int i = 0; i < ingredientBase.Count; i++)
+        Console.WriteLine("\n Avalilable Ingredient : ");
+        var ingredients = ingredientContainer.GetIngredientsList();
+        foreach (var ingredient in ingredients)
         {
-            Console.WriteLine($"{i + 1} - {ingredientBase[i].IngredientName}.{string.Join(". ", ingredientBase[i].Instructions)}");
+            Console.WriteLine($"{ingredient.Id} - {ingredient.IngredientName}");
         }
     }
     static void ChooseAction(out int action)
@@ -166,30 +143,11 @@ class Program
     static void ChooseIngredient()
     {
         Console.WriteLine("\nChoose one of the ingredient below : ");
-        DisplayIngredient(ingredientBase);
+        DisplayIngredient();
     }
-    static string ChooseFormatFile()
+    static void Start()
     {
-        string fileFormat = "";
-        bool validInput = false;
-        Console.Write("\nChoose the format film for save the recipe : ");
-        Console.WriteLine("1. Json");
-        Console.WriteLine("2. Txt");
-        Console.WriteLine();
-        Console.Write("Your Input : ");
-        Console.WriteLine("");
-        bool status = int.TryParse(Console.ReadLine(), out int input);
-        if (status && input == 1 && input == 2)
-        {
-            fileFormat = input == 1 ? "json" : "txt";
-            validInput = true;
-        }
-        else
-        {
-            Console.WriteLine("Please input valid number (1-2)");
-            Thread.Sleep(1000);
-        }
-        return fileFormat;
+        Console.WriteLine("Hello welcome to our kitchen, let's make some food ^_^\n");
     }
     static void Finished()
     {

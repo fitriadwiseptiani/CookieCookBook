@@ -12,9 +12,6 @@ namespace CookieCookbook.Container
 
         public Instruction BaseInstruction => Instruction.AddIngredients;
 
-        // public abstract int GetIngredientById(Ingredient ingredient);
-        // public abstract void SetIngredient(List<Ingredient> ingredient);
-
         public Ingredient(int id, IngredientName ingredientName, List<Instruction> instructions)
         {
             Id = id;
