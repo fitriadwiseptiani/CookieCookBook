@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Project\\CookieCookbook\\CookieCookbook\\CookieCookbook.csproj": {}
+    "D:\\Formulatrix\\CookieCookbook\\CookieCookbook.csproj": {}
   },
   "projects": {
-    "c:\\Project\\CookieCookbook\\CookieCookbook\\CookieCookbook.csproj": {
+    "D:\\Formulatrix\\CookieCookbook\\CookieCookbook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Project\\CookieCookbook\\CookieCookbook\\CookieCookbook.csproj",
+        "projectUniqueName": "D:\\Formulatrix\\CookieCookbook\\CookieCookbook.csproj",
         "projectName": "CookieCookbook",
-        "projectPath": "c:\\Project\\CookieCookbook\\CookieCookbook\\CookieCookbook.csproj",
-        "packagesPath": "C:\\Users\\SE-82\\.nuget\\packages\\",
-        "outputPath": "c:\\Project\\CookieCookbook\\CookieCookbook\\obj\\",
+        "projectPath": "D:\\Formulatrix\\CookieCookbook\\CookieCookbook.csproj",
+        "packagesPath": "C:\\Users\\Zeleama\\.nuget\\packages\\",
+        "outputPath": "D:\\Formulatrix\\CookieCookbook\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\SE-82\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Zeleama\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

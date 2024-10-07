@@ -9,10 +9,14 @@ namespace CookieCookbook.Repository
     {
         private IStringRepoManager _stringRepoManager;
         private IRecipeBase _recipe;
+        private readonly string _filePath;
+        private List<IRecipeBase> _recipes;
 
-        public RecipeRepo(IStringRepoManager stringRepoManager)
+        public RecipeRepo(IStringRepoManager stringRepoManager, string filePath)
         {
             _stringRepoManager = stringRepoManager;
+            _filePath = filePath;
+            _recipes = LoadFile();
         }
         public void SaveRecipe(IRecipeBase recipe)
         {
@@ -24,8 +28,8 @@ namespace CookieCookbook.Repository
         Console.WriteLine("Selected ingredients IDs: " + string.Join(", ", recipe.IngredientBases.Select(i => i.Id)));
             List<int> ingredientIds = recipe.IngredientBases.Select(i => i.Id).ToList();
             string recipeLine = string.Join(",", ingredientIds);
-
-            _stringRepoManager.SaveRecipe(recipeLine);
+            _recipes.Add(recipe);
+            _stringRepoManager.SaveRecipe(recipe);
             // if(RepoManager == "json"){
             //     SaveRecipeToJson();
             // }
@@ -36,6 +40,30 @@ namespace CookieCookbook.Repository
             //     throw new Exception("There is no spesific format file that can executed");
             // }
 
+        }
+        private List<IRecipeBase> LoadFile()
+        {
+            try
+            {
+                var recipesJson = _stringRepoManager.LoadFile(_filePath);
+                return recipesJson.Select(json => JsonSerializer.Deserialize<IRecipeBase>(json)).Where(r => r != null).ToList();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error loading recipes: {ex.Message}");
+                return new List<IRecipeBase>();
+            }
+        }
+        public void PrintAllRecipe() {
+            Console.WriteLine("All Recipes:");
+            foreach (var recipe in _recipes)
+            {
+                Console.WriteLine($"Recipe ID: {recipe.Id}");
+                foreach (var ingredient in recipe.IngredientBases)
+                {
+                    Console.WriteLine($" - {ingredient.IngredientName}");
+                }
+            }
         }
         // public void PrintAllRecipe(List<Recipe> recipes){
         //     if (recipes.Count == 0)
@@ -50,8 +78,8 @@ namespace CookieCookbook.Repository
         //         return;
         //     }
 
-            
-            
+
+
         //     _stringRepoManager.PrintRecipe();
         // }
 

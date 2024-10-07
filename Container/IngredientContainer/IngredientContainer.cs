@@ -1,7 +1,8 @@
 
+using CookieCookbook.Container;
 using CookieCookbook.Enums;
 
-namespace CookieCookbook.Container
+namespace CookieCookbook.IngredientContainer
 {
     public class IngredientContainer
     {

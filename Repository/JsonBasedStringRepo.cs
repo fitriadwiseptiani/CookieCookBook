@@ -5,42 +5,35 @@ namespace CookieCookbook.Repository;
 
 public class JsonBasedStringRepo : IStringRepoManager
 {
-    public void SaveRecipe(string recipeLine)
+    public void SaveRecipe(IRecipeBase recipe)
     {
         string filePath = "./File/recipes.json";
+        List<IRecipeBase> recipes = LoadFile(filePath).Select(a => JsonSerializer.Deserialize<IRecipeBase>(a)).ToList();
 
-        List<string> recipes;
-
-        if (File.Exists(filePath))
-        {
-            string json = File.ReadAllText(filePath);
-            recipes = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
-        }
-        else
-        {
-            recipes = new List<string>();
-        }
-
-        recipes.Add(recipeLine);
+        recipes.Add(recipe);
 
         string serializedJson = JsonSerializer.Serialize(recipes, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(filePath, serializedJson);
     }
-    public void PrintAllRecipe(string filePath, IRecipeBase recipes)
+    public void PrintAllRecipe(List<IRecipeBase> recipeBases)
     {
-        string json = File.ReadAllText(filePath);
-        List<string> recipe = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
+        foreach (var recipe in recipeBases)
+        {
+            Console.WriteLine(recipe.ToString()); // Pastikan bahwa ToString() di Recipe terimplementasi dengan baik
+        }
+        // string json = File.ReadAllText(filePath);
+        // List<string> recipe = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
 
-        Console.WriteLine("\nAll Recipes:");
+        // Console.WriteLine("\nAll Recipes:");
 
-        // for (int i = 0; i < recipe.Count; i++)
-        // {
-        //     string allRecipe = recipe[i];
-        //     List<int> ingredientIds = allRecipe.Split(',').Select(int.Parse).ToList();
-        //     Console.WriteLine($"***** Recipe {i + 1} *****");
-        //     Console.WriteLine(PrintRecipe(recipes, ingredientIds));
-        //     Console.WriteLine("");
-        // }
+        // // for (int i = 0; i < recipe.Count; i++)
+        // // {
+        // //     string allRecipe = recipe[i];
+        // //     List<int> ingredientIds = allRecipe.Split(',').Select(int.Parse).ToList();
+        // //     Console.WriteLine($"***** Recipe {i + 1} *****");
+        // //     Console.WriteLine(PrintRecipe(recipes, ingredientIds));
+        // //     Console.WriteLine("");
+        // // }
 
     }
     public string PrintRecipe(IRecipeBase recipes, List<int> ingredientIds)
@@ -57,6 +50,14 @@ public class JsonBasedStringRepo : IStringRepoManager
         }
 
         return string.Join("\n", ingredientDetails);
+    }
+    public List<string> LoadFile(string filePath)
+    {
+        if (!File.Exists(filePath))
+            return new List<string>();
+
+        string json = File.ReadAllText(filePath);
+        return JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
     }
 
 }
