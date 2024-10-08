@@ -1,0 +1,5 @@
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.GeneratedMSBuildEditorConfig.editorconfig
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.AssemblyInfoInputs.cache
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.AssemblyInfo.cs
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.csproj.CoreCompileInputs.cache
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.sourcelink.json
