@@ -4,6 +4,6 @@ namespace Cookbook.App.Repository;
 
 public interface IStringRepoManager
 {
-    void SaveRecipes(IEnumerable<Recipe> recipe);
-    IEnumerable<Recipe> ReadRecipe();
+    void SaveRecipes(string recipeLine);
+    void ReadRecipe();
 }

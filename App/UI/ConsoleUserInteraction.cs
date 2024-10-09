@@ -38,5 +38,32 @@ public class ConsoleUserInteraction : IUserInteraction
     public IEnumerable<Recipe> GetRecipesList(){
         return _recipes;
     }
+    public void FileExist(string filePath, string message){
+
+        if (!File.Exists(filePath))
+        {
+            Console.WriteLine(message);
+            return;
+        }
+    }
+    public void RecipeCount(List<string> recipes, string message){
+        if (recipes.Count == null)
+        {
+            Console.WriteLine(message);
+            return;
+        }
+    }
+    public void GetRecipeList(List<string> recipe){
+        recipe.Select((recipeData, index) => new { recipeData, index })
+           .ToList()
+           .ForEach(r =>
+           {
+               List<int> ingredientIds = r.recipeData.Split(',').Select(int.Parse).ToList();
+               Console.WriteLine($"***** Recipe {r.index + 1} *****");
+               Console.WriteLine(PrintRecipe(ingredientIds));
+               Console.WriteLine("");
+           });
+    }
+
 
 }

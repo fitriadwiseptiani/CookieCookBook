@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Project\\CookieCookbook\\Cookbook\\Cookbook.csproj": {}
+    "C:\\Users\\SE-82\\Music\\Cookbook\\Cookbook.csproj": {}
   },
   "projects": {
-    "C:\\Project\\CookieCookbook\\Cookbook\\Cookbook.csproj": {
+    "C:\\Users\\SE-82\\Music\\Cookbook\\Cookbook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Project\\CookieCookbook\\Cookbook\\Cookbook.csproj",
+        "projectUniqueName": "C:\\Users\\SE-82\\Music\\Cookbook\\Cookbook.csproj",
         "projectName": "Cookbook",
-        "projectPath": "C:\\Project\\CookieCookbook\\Cookbook\\Cookbook.csproj",
+        "projectPath": "C:\\Users\\SE-82\\Music\\Cookbook\\Cookbook.csproj",
         "packagesPath": "C:\\Users\\SE-82\\.nuget\\packages\\",
-        "outputPath": "C:\\Project\\CookieCookbook\\Cookbook\\obj\\",
+        "outputPath": "C:\\Users\\SE-82\\Music\\Cookbook\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\SE-82\\AppData\\Roaming\\NuGet\\NuGet.Config"

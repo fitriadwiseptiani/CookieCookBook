@@ -5,11 +5,12 @@ namespace Cookbook.App.Repository;
 
 public class JsonBasedStringRepo : IStringRepoManager
 {
+    private ConsoleUserInteraction _ui;
     private readonly string filePath = "./File/recipes.json";
     public JsonBasedStringRepo()
     {
     }
-    public void SaveRecipes(IEnumerable<Recipe> recipe, string recipeLine)
+    public void SaveRecipes(string recipeLine)
     {
         List<string> recipes = LoadFile(filePath);
         recipes.Add(recipeLine);
@@ -18,24 +19,14 @@ public class JsonBasedStringRepo : IStringRepoManager
         File.WriteAllText(filePath, serializedJson);
     }
 
-    public IEnumerable<Recipe> ReadRecipe()
+    public void ReadRecipe()
     {
-        if (!File.Exists(filePath))
-        {
-            throw new Exception("Sorry no recipes found");
-
-        }
+        _ui.FileExist(filePath);
         string json = File.ReadAllText(filePath);
         List<string> recipe = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
-        if (recipe.Count == null)
-        {
-            throw new Exception();
-        }
-        recipe.Select((recipeData, index) => new { recipeData, index }).ToList().ForEach(p =>
-        {
-            List<int> ingredientIds = p.recipeData.Split(',').Select(int.Parse).ToList();
-        });
-        return List<int> ingredientIds;
+        //recipecount
+
+        
     }
     
 

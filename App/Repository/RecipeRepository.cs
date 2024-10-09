@@ -1,4 +1,5 @@
 using Cookbook.App;
+using Cookbook.Model;
 
 namespace Cookbook.App.Repository;
 
@@ -19,10 +20,11 @@ public class RecipeRepository : IRecipeRepository
         List<int> ingredientIds = recipe._ingredients.Select(i => i.Id).ToList();
         string recipeLine = string.Join(",", ingredientIds);
 
-        _stringRepoManager.SaveRecipe(recipe);
+        _stringRepoManager.SaveRecipes(recipeLine);
     }
     public IEnumerable<Recipe> PrintRecipes()
     {
+        
         return _stringRepoManager.ReadRecipe();
     }
 
@@ -32,10 +34,10 @@ public class RecipeRepository : IRecipeRepository
 
         foreach (int id in ingredientIds)
         {
-            IIngredient? ingredient = _ingredientContainer.GetIngredientsList().Find(a => a.Id == id);
+            Ingredient? ingredient = _ui.GetIngredientsList().Find(a => a.Id == id);
             if (ingredient != null)
             {
-                ingredientDetails.Add($"{ingredient.IngredientName}. {string.Join(". ", ingredient.Instructions)}");
+                ingredientDetails.Add($"{ingredient.Name}. {string.Join(". ", ingredient.InstructionPreparation)}");
             }
             else
             {
