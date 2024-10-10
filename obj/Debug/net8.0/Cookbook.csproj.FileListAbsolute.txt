@@ -1,0 +1,35 @@
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.GeneratedMSBuildEditorConfig.editorconfig
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.AssemblyInfoInputs.cache
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.AssemblyInfo.cs
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.csproj.CoreCompileInputs.cache
+C:\Project\CookieCookbook\Cookbook\obj\Debug\net8.0\Cookbook.sourcelink.json
+D:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\Cookbook.GeneratedMSBuildEditorConfig.editorconfig
+D:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\Cookbook.AssemblyInfoInputs.cache
+D:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\Cookbook.AssemblyInfo.cs
+D:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\Cookbook.csproj.CoreCompileInputs.cache
+D:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\Cookbook.sourcelink.json
+D:\Formulatrix\tugas tambahan\CookieCookbook\bin\Debug\net8.0\Cookbook.exe
+d:\Formulatrix\tugas tambahan\CookieCookbook\bin\Debug\net8.0\Cookbook.deps.json
+d:\Formulatrix\tugas tambahan\CookieCookbook\bin\Debug\net8.0\Cookbook.runtimeconfig.json
+D:\Formulatrix\tugas tambahan\CookieCookbook\bin\Debug\net8.0\Cookbook.dll
+D:\Formulatrix\tugas tambahan\CookieCookbook\bin\Debug\net8.0\Cookbook.pdb
+D:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\Cookbook.dll
+D:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\refint\Cookbook.dll
+D:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\Cookbook.pdb
+d:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\Cookbook.genruntimeconfig.cache
+d:\Formulatrix\tugas tambahan\CookieCookbook\obj\Debug\net8.0\ref\Cookbook.dll
+C:\Project\tambahan\Cookbook\obj\Debug\net8.0\Cookbook.GeneratedMSBuildEditorConfig.editorconfig
+C:\Project\tambahan\Cookbook\obj\Debug\net8.0\Cookbook.AssemblyInfoInputs.cache
+C:\Project\tambahan\Cookbook\obj\Debug\net8.0\Cookbook.AssemblyInfo.cs
+C:\Project\tambahan\Cookbook\obj\Debug\net8.0\Cookbook.csproj.CoreCompileInputs.cache
+C:\Project\tambahan\Cookbook\obj\Debug\net8.0\Cookbook.sourcelink.json
+C:\Project\tambahan\Cookbook\obj\Debug\net8.0\Cookbook.dll
+C:\Project\tambahan\Cookbook\obj\Debug\net8.0\refint\Cookbook.dll
+C:\Project\tambahan\Cookbook\obj\Debug\net8.0\Cookbook.pdb
+C:\Project\tambahan\Cookbook\bin\Debug\net8.0\Cookbook.exe
+c:\Project\tambahan\Cookbook\bin\Debug\net8.0\Cookbook.deps.json
+c:\Project\tambahan\Cookbook\bin\Debug\net8.0\Cookbook.runtimeconfig.json
+C:\Project\tambahan\Cookbook\bin\Debug\net8.0\Cookbook.dll
+C:\Project\tambahan\Cookbook\bin\Debug\net8.0\Cookbook.pdb
+c:\Project\tambahan\Cookbook\obj\Debug\net8.0\Cookbook.genruntimeconfig.cache
+c:\Project\tambahan\Cookbook\obj\Debug\net8.0\ref\Cookbook.dll

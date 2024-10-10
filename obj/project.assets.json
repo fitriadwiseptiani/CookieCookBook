@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Project\\CookieCookbook\\CookieCookbook\\CookieCookbook.csproj",
-      "projectName": "CookieCookbook",
-      "projectPath": "C:\\Project\\CookieCookbook\\CookieCookbook\\CookieCookbook.csproj",
+      "projectUniqueName": "c:\\Project\\tambahan\\Cookbook\\Cookbook.csproj",
+      "projectName": "Cookbook",
+      "projectPath": "c:\\Project\\tambahan\\Cookbook\\Cookbook.csproj",
       "packagesPath": "C:\\Users\\SE-82\\.nuget\\packages\\",
-      "outputPath": "C:\\Project\\CookieCookbook\\CookieCookbook\\obj\\",
+      "outputPath": "c:\\Project\\tambahan\\Cookbook\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\SE-82\\AppData\\Roaming\\NuGet\\NuGet.Config"
