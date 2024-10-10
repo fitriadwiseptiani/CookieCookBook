@@ -1,44 +1,29 @@
 using System.Text.Json;
-using Cookbook.App;
+using Cookbook.App.UI;
 
 namespace Cookbook.App.Repository;
 
 public class JsonBasedStringRepo : IStringRepoManager
 {
-    private ConsoleUserInteraction _ui;
+    private ICookbookInteraction _cookbookUI;
     private readonly string filePath = "./File/recipes.json";
     public JsonBasedStringRepo()
     {
+        _cookbookUI = new CookbookInteraction();
     }
-    public void SaveRecipes(string recipeLine)
+    public void SaveRecipes(Recipe recipe, string recipeLine)
     {
-        List<string> recipes = LoadFile(filePath);
+        List<string> recipes = _cookbookUI.LoadFileJson(filePath);
         recipes.Add(recipeLine);
 
         string serializedJson = JsonSerializer.Serialize(recipes, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(filePath, serializedJson);
     }
 
-    public void ReadRecipe()
+    public List<string> ReadRecipe()
     {
-            _ui.FileExist(filePath);
-            string json = File.ReadAllText(filePath);
-            List<string> recipe = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
-            //recipecount
-
-
-        }
-
+        List<string> recipe = _cookbookUI.LoadFileJson(filePath);
+        _cookbookUI.DisplayRecipe(recipe);
+        return recipe;
     }
-        static List<string> LoadFile(string filePath)
-        {
-            if (!File.Exists(filePath))
-            {
-                return new List<string>();
-            }
-            string json = File.ReadAllText(filePath);
-            return JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
-        }
-
-    
 }

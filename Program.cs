@@ -1,6 +1,7 @@
 ﻿using Cookbook.App.Repository;
 using Cookbook.App;
 using Cookbook.Enums;
+using Cookbook.App.UI;
 
 namespace CookbookApp
 {
@@ -8,11 +9,12 @@ namespace CookbookApp
     {
         static void Main(string[] args)
         {
-            IStringRepoManager _stringRepoManager;
-            Console.WriteLine("Choose format to save recipes: 1. JSON 2. TXT");
-            int choice = int.Parse(Console.ReadLine());
+            IUserInteraction ui = new ConsoleUserInteraction();
+            ICookbookInteraction cookbookUI = new CookbookInteraction();
 
-            string filePath;
+            IStringRepoManager _stringRepoManager;
+            ui.WriteMessage("Choose format to save your recipes: 1. JSON 2. TXT");
+            int choice = int.Parse(Console.ReadLine());
 
             if (choice == 1)
             {
@@ -22,22 +24,15 @@ namespace CookbookApp
             {
                 _stringRepoManager = new TxtBasedStringRepo();
             }
-            IEnumerable<Recipe> recipes;
             IRecipeRepository repository = new RecipeRepository(_stringRepoManager);
-            IUserInteraction ui = new ConsoleUserInteraction();
 
-            ICookbook cookbook = new CookieCookbook(repository, ui);
+            repository.PrintRecipes();
+
+            ICookbook cookbook = new CookieCookbook(repository, ui, cookbookUI);            
             try
             {
                 var result = cookbook.MakeNewRecipe();
-                if (result == CookbookErrorCode.NoError)
-                {
-                    Console.WriteLine("Recipe created successfully.");
-                }
-                else
-                {
-                    Console.WriteLine($"An error occurred: {result}");
-                }
+
             }
             catch (Exception e)
             {

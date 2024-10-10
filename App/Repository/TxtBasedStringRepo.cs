@@ -1,46 +1,32 @@
-using Cookbook.App;
+using Cookbook.App.UI;
 
 namespace Cookbook.App.Repository;
 
 public class TxtBasedStringRepo : IStringRepoManager
 {
-    
     private readonly string filePath = "./File/recipes.txt";
+    private readonly ICookbookInteraction _cookbookUI;
     public TxtBasedStringRepo()
     {
+        _cookbookUI = new CookbookInteraction();
     }
 
-    public void SaveRecipes(string recipeLine)
+    public void SaveRecipes(Recipe recipe, string recipeLine)
     {
-        List<string> recipes = LoadFile(filePath);
+        List<string> recipes = _cookbookUI.LoadFileTxt(filePath);
 
         recipes.Add(recipeLine);
 
         File.WriteAllLines(filePath, recipes);
     }
 
-    public void ReadRecipe()
+    public List<string> ReadRecipe()
     {
-        // file exist
-        List<string> recipes = LoadFile(filePath);
-         
-        //  recipes.Select((recipeData, index) => new { recipeData, index })
-        //    .ToList()
-        //    .ForEach(r =>
-        //    {
-        //        List<int> ingredientIds = r.recipeData.Split(',').Select(int.Parse).ToList();
-        //        Console.WriteLine($"***** Recipe {r.index + 1} *****");
-        //        Console.WriteLine(PrintRecipe(ingredientIds));
-        //        Console.WriteLine("");
-        //    });
+        List<string> recipe = _cookbookUI.LoadFileTxt(filePath);
 
+        _cookbookUI.DisplayRecipe(recipe);
+
+        return recipe;
     }
-    static List<string> LoadFile(string filePath)
-    {
-        if (!File.Exists(filePath))
-        {
-            return new List<string>();
-        }
-        return File.ReadAllLines(filePath).ToList();
-    }
+
 }

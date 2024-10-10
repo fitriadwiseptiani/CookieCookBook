@@ -1,87 +1,13 @@
-using Cookbook.Model;
-
 namespace Cookbook.App;
 
 public class ConsoleUserInteraction : IUserInteraction
 {
-    private List<Ingredient> _ingredient;
-    private IEnumerable<Recipe> _recipes;
-    public ConsoleUserInteraction()
-    {
-        _ingredient = new List<Ingredient>
-        {
-            new WheatFlour(),
-            new Butter(),
-            new Cardamon(),
-            new Cinnamon(),
-            new CocoaPowder(),
-            new CoconutFlour(),
-            new Sugar(),
-            new Chocolate(),
-        };
-    }
     public void WriteMessage(string message)
     {
         Console.WriteLine(message);
     }
-    public int TryRead()
+    public bool TryRead(string inputPlayer, out int id)
     {
-        if (int.TryParse(Console.ReadLine(), out int result))
-        {
-            return result;
-        }
-        return -1;
+        return Int32.TryParse(inputPlayer, out id);
     }
-    public List<Ingredient>  GetIngredientsList(){
-        return _ingredient;
-    }
-    public int GetIngredientById(Ingredient ingredient){
-        if(_ingredient.Contains(ingredient)){
-            return ingredient.Id;
-        }
-        throw new Exception();
-    }
-    public string GetIngredientName(Ingredient ingredient){
-        if(_ingredient.Contains(ingredient)){
-            return ingredient.Name;
-        }
-        throw new Exception();
-    }
-    public string GetIgredientInstruction(Ingredient ingredient){
-        if(_ingredient.Contains(ingredient)){
-            return ingredient.InstructionPreparation;
-        }
-        throw new Exception();
-    }
-    public IEnumerable<Recipe> GetRecipesList(){
-        return _recipes;
-    }
-    public void FileExist(string filePath, string message){
-
-        if (!File.Exists(filePath))
-        {
-            Console.WriteLine(message);
-            return;
-        }
-    }
-    public void RecipeCount(List<string> recipes, string message){
-        if (recipes.Count == null)
-        {
-            Console.WriteLine(message);
-            return;
-        }
-    }
-    // public void GetRecipeList(List<string> recipe){
-    //     recipe.Select((recipeData, index) => new { recipeData, index })
-    //        .ToList()
-    //        .ForEach(r =>
-    //        {
-    //            List<int> ingredientIds = r.recipeData.Split(',').Select(int.Parse).ToList();
-    //            Console.WriteLine($"***** Recipe {r.index + 1} *****");
-    //            Console.WriteLine(PrintRecipe(ingredientIds));
-    //            Console.WriteLine("");
-    //        });
-    // }
-
-
 }

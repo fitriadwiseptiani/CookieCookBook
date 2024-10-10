@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "d:\\Formulatrix\\tugas tambahan\\CookieCookbook\\Cookbook.csproj": {}
+    "c:\\Project\\tambahan\\Cookbook\\Cookbook.csproj": {}
   },
   "projects": {
-    "d:\\Formulatrix\\tugas tambahan\\CookieCookbook\\Cookbook.csproj": {
+    "c:\\Project\\tambahan\\Cookbook\\Cookbook.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\Formulatrix\\tugas tambahan\\CookieCookbook\\Cookbook.csproj",
+        "projectUniqueName": "c:\\Project\\tambahan\\Cookbook\\Cookbook.csproj",
         "projectName": "Cookbook",
-        "projectPath": "d:\\Formulatrix\\tugas tambahan\\CookieCookbook\\Cookbook.csproj",
-        "packagesPath": "C:\\Users\\Zeleama\\.nuget\\packages\\",
-        "outputPath": "d:\\Formulatrix\\tugas tambahan\\CookieCookbook\\obj\\",
+        "projectPath": "c:\\Project\\tambahan\\Cookbook\\Cookbook.csproj",
+        "packagesPath": "C:\\Users\\SE-82\\.nuget\\packages\\",
+        "outputPath": "c:\\Project\\tambahan\\Cookbook\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Zeleama\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\SE-82\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
