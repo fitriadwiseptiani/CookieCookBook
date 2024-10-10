@@ -6,13 +6,31 @@ public class ConsoleUserInteraction : IUserInteraction
 {
     private List<Ingredient> _ingredient;
     private IEnumerable<Recipe> _recipes;
+    public ConsoleUserInteraction()
+    {
+        _ingredient = new List<Ingredient>
+        {
+            new WheatFlour(),
+            new Butter(),
+            new Cardamon(),
+            new Cinnamon(),
+            new CocoaPowder(),
+            new CoconutFlour(),
+            new Sugar(),
+            new Chocolate(),
+        };
+    }
     public void WriteMessage(string message)
     {
         Console.WriteLine(message);
     }
     public int TryRead()
     {
-        throw new NotImplementedException();
+        if (int.TryParse(Console.ReadLine(), out int result))
+        {
+            return result;
+        }
+        return -1;
     }
     public List<Ingredient>  GetIngredientsList(){
         return _ingredient;
@@ -53,17 +71,17 @@ public class ConsoleUserInteraction : IUserInteraction
             return;
         }
     }
-    public void GetRecipeList(List<string> recipe){
-        recipe.Select((recipeData, index) => new { recipeData, index })
-           .ToList()
-           .ForEach(r =>
-           {
-               List<int> ingredientIds = r.recipeData.Split(',').Select(int.Parse).ToList();
-               Console.WriteLine($"***** Recipe {r.index + 1} *****");
-               Console.WriteLine(PrintRecipe(ingredientIds));
-               Console.WriteLine("");
-           });
-    }
+    // public void GetRecipeList(List<string> recipe){
+    //     recipe.Select((recipeData, index) => new { recipeData, index })
+    //        .ToList()
+    //        .ForEach(r =>
+    //        {
+    //            List<int> ingredientIds = r.recipeData.Split(',').Select(int.Parse).ToList();
+    //            Console.WriteLine($"***** Recipe {r.index + 1} *****");
+    //            Console.WriteLine(PrintRecipe(ingredientIds));
+    //            Console.WriteLine("");
+    //        });
+    // }
 
 
 }

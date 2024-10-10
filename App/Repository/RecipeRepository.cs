@@ -22,10 +22,10 @@ public class RecipeRepository : IRecipeRepository
 
         _stringRepoManager.SaveRecipes(recipeLine);
     }
-    public IEnumerable<Recipe> PrintRecipes()
+    public void PrintRecipes()
     {
         
-        return _stringRepoManager.ReadRecipe();
+        _stringRepoManager.ReadRecipe();
     }
 
     public string PrintSingleRecipe(List<int> ingredientIds)

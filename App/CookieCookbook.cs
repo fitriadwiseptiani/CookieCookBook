@@ -18,13 +18,15 @@ public class CookieCookbook : ICookbook
     private readonly IRecipeRepository _recipeRepository;
 
     //Dependency Injection & Inverison
-    public CookieCookbook(IEnumerable<Recipe> recipes, IRecipeRepository recipeRepository, IUserInteraction ui)
+    public CookieCookbook(IRecipeRepository recipeRepository, IUserInteraction ui)
     {
         _ingredient = new List<Ingredient>();
-        _recipes = recipes;
         _recipeRepository = recipeRepository;
         _ui = ui;
     }
+    // choose format
+    // choose ingredient
+
     public CookbookErrorCode MakeNewRecipe()
     {
         while (true)
@@ -38,7 +40,7 @@ public class CookieCookbook : ICookbook
                 if (_ingredient != null)
                 {
                     _ingredient.Add(ingredient);
-                    _ui.WriteMessage($"{ingredient.Name} was added to recipe");
+                    // _ui.WriteMessage($"{ingredient.Name} was added to recipe");
                 }
                 else
                 {
@@ -48,7 +50,7 @@ public class CookieCookbook : ICookbook
 
             }
 
-            SavingRecipe();
+            // SavingRecipe();
             return CookbookErrorCode.NoError;
         }
     }
@@ -103,17 +105,17 @@ public class CookieCookbook : ICookbook
     {
         _ui.WriteMessage("The session has been finished. Thank you for your contribution to adding new recipe");
     }
-    public void SavingRecipe(){
-        if (_ingredient.Count > 0)
-        {
+    // public void SavingRecipe(){
+    //     if (_ingredient.Count > 0)
+    //     {
             
-            _recipeRepository.SaveRecipes(recipe);
-        }
-        else
-        {
-            Console.WriteLine("No ingredients selected. No recipe added.");
+    //         _recipeRepository.SaveRecipes(recipe);
+    //     }
+    //     else
+    //     {
+    //         Console.WriteLine("No ingredients selected. No recipe added.");
 
-        }
-    }
+    //     }
+    // }
 
 }

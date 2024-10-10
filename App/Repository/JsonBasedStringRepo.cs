@@ -21,23 +21,24 @@ public class JsonBasedStringRepo : IStringRepoManager
 
     public void ReadRecipe()
     {
-        _ui.FileExist(filePath);
-        string json = File.ReadAllText(filePath);
-        List<string> recipe = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
-        //recipecount
+            _ui.FileExist(filePath);
+            string json = File.ReadAllText(filePath);
+            List<string> recipe = JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
+            //recipecount
 
-        
-    }
-    
 
-    static List<string> LoadFile(string filePath)
-    {
-        if (!File.Exists(filePath))
-        {
-            return new List<string>();
         }
-        string json = File.ReadAllText(filePath);
-        return JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
-    }
 
+    }
+        static List<string> LoadFile(string filePath)
+        {
+            if (!File.Exists(filePath))
+            {
+                return new List<string>();
+            }
+            string json = File.ReadAllText(filePath);
+            return JsonSerializer.Deserialize<List<string>>(json) ?? new List<string>();
+        }
+
+    
 }
